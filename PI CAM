@@ -1,0 +1,21 @@
+from gpiozero import MotionSensor
+from picamera import PiCamera
+from time import sleep
+from signal import pause
+
+pir = MotionSensor(4)
+camera = PiCamera()
+
+i=0
+
+def take_photo():
+    global i
+    i = i + 1
+    camera.capture('/home/pi/Desktop/image_%s.jpg' % i)
+    print('A photo has been taken')
+    sleep(10)
+
+pir.when_motion = take_photo
+
+pause()
+
